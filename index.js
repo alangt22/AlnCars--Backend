@@ -4,7 +4,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: 'https://aln-cars.netlify.app/', 
+  origin: 'https://aln-cars.netlify.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, 
