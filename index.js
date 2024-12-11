@@ -14,8 +14,7 @@ app.use(cors({
 
 app.use(express.json());
 
-
-app.use('public/images', express.static(path.join(__dirname, 'public/images')));
+app.use(express.static('public'));
 
 // Rotas
 const UserRoutes = require('./routes/UserRoutes');
