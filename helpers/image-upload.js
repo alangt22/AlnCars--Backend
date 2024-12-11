@@ -6,13 +6,19 @@ const path = require('path')
 const imageStorage = multer.diskStorage({
     destination: function(req, file, cb){
         let folder = ""
+
         if(req.baseUrl.includes("users")){
             folder = "users"
         }else if(req.baseUrl.includes("cars")){
             folder = "cars"
         }
 
-        cb(null, `public/images/${folder}`)
+        // Verificar se o diretório existe; se não, criar
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
+
+        cb(null, dirPath); // Pasta para armazenar as imagens
     },
     filename: function (req, file, cb) {
         cb(
