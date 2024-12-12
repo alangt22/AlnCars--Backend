@@ -10,7 +10,7 @@ const objectId = require('mongoose').Types.ObjectId
 module.exports = class CarController {
     // create a pet
     static async create(req, res) {
-        const {name, price, km, brand, transmission, year, color, fuel, motor, location,  features} = req.body
+        const {name, price, km, brand, transmission, year, color, fuel, motor, location, moreInfo,  features} = req.body
         const images = req.files
 
         const available = true
@@ -61,6 +61,10 @@ module.exports = class CarController {
             res.status(422).json({message: "O motor  e obrigatoria!"})
             return
         }
+        if(!moreInfo) {
+            res.status(422).json({message: "As informações são obrigatoria!"})
+            return
+        }
         if(images.lenght === 0) {
             res.status(422).json({message: "A imagem e obrigatoria!"})
             return
@@ -81,6 +85,7 @@ module.exports = class CarController {
             color,
             fuel,
             motor,
+            moreInfo,
             location,
             // Ajuste o código para garantir que features seja um array de strings
             features: features ? features.split(',').map(feature => feature.trim()) : [],
@@ -186,7 +191,7 @@ module.exports = class CarController {
     }
     static async updateCar(req, res) {
         const id = req.params.id
-        const {name, price, km, brand, transmission, year, color, fuel, motor, location,  features} = req.body
+        const {name, price, km, brand, transmission, year, color, fuel, motor, location, moreInfo,  features} = req.body
         const images = req.files
         const updateData = {}
         // check if pet exists
@@ -274,6 +279,13 @@ module.exports = class CarController {
             return
         }else {
             updateData.location = location
+        }
+
+        if(!moreInfo) {
+            res.status(422).json({message: "As informações são obrigatorio!"})
+            return
+        } else {
+            updateData.moreInfo = moreInfo
         }
 
         if(!features) {

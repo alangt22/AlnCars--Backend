@@ -45,6 +45,10 @@ const Car = mongoose.model(
             type: String, // Localização do carro
             required: true
         },
+        moreInfo: {
+            type: String,
+            required: true
+        },
         features: {
             type: [String], 
             default: []
